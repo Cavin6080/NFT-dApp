@@ -9,8 +9,10 @@ import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ContractLinking {
+  // final String rpcURL = "http://192.168.37.78:7545";
   final String rpcURL = "http://10.0.2.2:7545";
-  // final String rpcURL = "http://127.0.0.1:7545";
+  // final String rpcURL = "http://127.0.0.1:7545"; // 192.168.37.78
+  // final String wssURL = "ws://192.168.37.78:7545";
   final String wssURL = "ws://10.0.2.2:7545";
   // final String wssURL = "ws://127.0.0.1:7545";
   final String privateKey =
@@ -60,17 +62,17 @@ class ContractLinking {
     }
   }
 
-  getAbi() async {
-    String abiStringFile = await rootBundle.loadString(
-      'build/contracts/HelloWorld.json',
-    );
+  // getAbi() async {
+  //   String abiStringFile = await rootBundle.loadString(
+  //     'build/contracts/HelloWorld.json',
+  //   );
 
-    final jsonABI = jsonDecode(abiStringFile);
-    abiCode = jsonEncode(jsonABI['abi']);
-    contractAddress = EthereumAddress.fromHex(
-      jsonABI['networks']['5777']['address'],
-    );
-  }
+  //   final jsonABI = jsonDecode(abiStringFile);
+  //   abiCode = jsonEncode(jsonABI['abi']);
+  //   contractAddress = EthereumAddress.fromHex(
+  //     jsonABI['networks']['5777']['address'],
+  //   );
+  // }
 
   Future<void> getAbiForNFT() async {
     String abiStringFile = await rootBundle.loadString(
@@ -119,7 +121,7 @@ class ContractLinking {
     await getURIs();
   }
 
-  Future<void> getURIs() async {
+  Future<List<String>> getURIs() async {
     final _myURIs = await web3client?.call(
       contract: contract!,
       function: _uris!,
@@ -129,9 +131,10 @@ class ContractLinking {
     uris = (_myURIs?[0] as List<dynamic>).map((e) => e.toString()).toList();
     print("_myURIs: ${uris?.length}");
     isLoading = false;
+    return uris ?? [];
   }
 
-  Future<void> createTokenURIs(String uri) async {
+  Future<List<String>> createTokenURIs(String uri) async {
     isLoading = true;
     await web3client?.sendTransaction(
       credentials!,
@@ -141,7 +144,7 @@ class ContractLinking {
         parameters: [uri],
       ),
     );
-    await getURIs();
+    return await getURIs();
   }
 
   void getMessage() async {

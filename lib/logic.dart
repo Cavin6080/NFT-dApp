@@ -13,4 +13,8 @@ class NFTController extends GetxController {
     controller = TextEditingController();
     super.onInit();
   }
+
+  void onTap() async {
+    await contractLinking.createTokenURIs(controller.text);
+  }
 }
