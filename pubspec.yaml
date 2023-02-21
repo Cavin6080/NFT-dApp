@@ -51,7 +51,7 @@ dependencies:
   circular_reveal_animation: ^2.0.1
   animation_list: ^2.2.1
   faker: ^2.1.0
-  alan_voice: ^3.10.0
+  alan_voice: ^3.11.0
 
 dev_dependencies:
   flutter_test:
