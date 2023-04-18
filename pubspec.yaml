@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   web3dart: ^2.5.1
   http: ^0.13.5
-  web_socket_channel: ^2.3.0
+  web_socket_channel: ^2.4.0
   get: ^4.6.5
   animated_text_kit: ^4.2.2
   concentric_transition: ^1.0.3
